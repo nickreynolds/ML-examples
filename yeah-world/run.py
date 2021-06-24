@@ -102,11 +102,11 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
         summary = 'Class %d [%s]' % (selected, ' '.join('%02.0f%%' % (99 * p) for p in smoothed))
         stderr.write('\r' + summary)
 
-        if selected == 1 && isOn:
+        if selected == 1 and isOn:
             SetAngle(90)
             isOff = True
             isOn = False
-        else if selected == 2 && isOff:
+        else if selected == 2 and isOff:
             SetAngle(10)
             isOff = False
             isOn = True
