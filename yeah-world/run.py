@@ -25,6 +25,21 @@ from camera import Camera
 from pinet import PiNet
 from randomsound import RandomSound
 
+import RPi.GPIO as GPIO
+from time import sleep
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(17, GPIO.OUT)
+
+def SetAngle(angle):
+    duty = angle / 18 + 2
+    GPIO.output(17, True)
+    pwm.ChangeDutyCycle(duty)
+    sleep(1)
+    GPIO.output(17, False)
+    pwm.ChangeDutyCycle(0)
+
+
 # Smooth out spikes in predictions but increase apparent latency. Decrease on a Pi Zero.
 SMOOTH_FACTOR = 0.8
 
@@ -53,6 +68,9 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
     # Initialize the camera and sound systems
     camera = Camera(training_mode=False)
     random_sound = RandomSound()
+
+    isOn = False
+    isOff = True
 
 
     # Create a preview window so we can see if we are in frame or not
@@ -84,11 +102,14 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
         summary = 'Class %d [%s]' % (selected, ' '.join('%02.0f%%' % (99 * p) for p in smoothed))
         stderr.write('\r' + summary)
 
-        # Perform actions for selected class. In this case, play a sound from the sounds/ dir
-        if selected == 0:
-            random_sound.play_from('sounds/')
-        else:
-            random_sound.stop()
+        if selected == 1 && isOn:
+            SetAngle(90)
+            isOff = True
+            isOn = False
+        else if selected == 2 && isOff:
+            SetAngle(10)
+            isOff = False
+            isOn = True
 
         # Show the image in a preview window so you can tell if you are in frame
         if SHOW_UI:
