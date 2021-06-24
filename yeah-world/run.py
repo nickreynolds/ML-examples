@@ -28,7 +28,7 @@ from randomsound import RandomSound
 import RPi.GPIO as GPIO
 from time import sleep
 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT)
 
 def SetAngle(angle):
