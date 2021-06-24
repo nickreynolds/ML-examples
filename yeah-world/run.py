@@ -106,7 +106,7 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
             SetAngle(90)
             isOff = True
             isOn = False
-        else if selected == 2 and isOff:
+        elif selected == 2 and isOff:
             SetAngle(10)
             isOff = False
             isOn = True
