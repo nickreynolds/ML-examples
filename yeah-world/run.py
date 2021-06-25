@@ -117,7 +117,7 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
         elif selected == 2:
             numFramesThumbsUp = numFramesThumbsUp + 1;
             numFramesThumbsDown = 0;
-            if (numFramesThumbsUp > 10 and isOn):
+            if (numFramesThumbsUp > 10 and isOff):
                 SetAngle(120)
                 isOff = False
                 isOn = True
