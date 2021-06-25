@@ -71,6 +71,9 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
     camera = Camera(training_mode=False)
     random_sound = RandomSound()
 
+
+    numFramesThumbsUp = 0
+    numFramesThumbsDown = 0
     isOn = False
     isOff = True
 
@@ -104,14 +107,20 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
         summary = 'Class %d [%s]' % (selected, ' '.join('%02.0f%%' % (99 * p) for p in smoothed))
         stderr.write('\r' + summary)
 
-        if selected == 1 and isOn:
-            SetAngle(70)
-            isOff = True
-            isOn = False
-        elif selected == 2 and isOff:
-            SetAngle(120)
-            isOff = False
-            isOn = True
+        if selected == 1:
+            numFramesThumbsDown++;
+            numFramesThumbsUp = 0;
+            if (numFramesThumbsDown > 10 and isOn):
+                SetAngle(70)
+                isOff = True
+                isOn = False
+        elif selected == 2:
+            numFramesThumbsUp++;
+            numFramesThumbsDown = 0;
+            if (numFramesThumbsUp > 10 and isOn):
+                SetAngle(120)
+                isOff = False
+                isOn = True
 
         # Show the image in a preview window so you can tell if you are in frame
         if SHOW_UI:
