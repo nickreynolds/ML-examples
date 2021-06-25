@@ -108,14 +108,14 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
         stderr.write('\r' + summary)
 
         if selected == 1:
-            numFramesThumbsDown++;
+            numFramesThumbsDown = numFramesThumbsDown + 1;
             numFramesThumbsUp = 0;
             if (numFramesThumbsDown > 10 and isOn):
                 SetAngle(70)
                 isOff = True
                 isOn = False
         elif selected == 2:
-            numFramesThumbsUp++;
+            numFramesThumbsUp = numFramesThumbsUp + 1;
             numFramesThumbsDown = 0;
             if (numFramesThumbsUp > 10 and isOn):
                 SetAngle(120)
