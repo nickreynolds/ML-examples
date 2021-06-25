@@ -107,7 +107,10 @@ Use MODEL to classify camera frames and play sounds when class 0 is recognised."
         summary = 'Class %d [%s]' % (selected, ' '.join('%02.0f%%' % (99 * p) for p in smoothed))
         stderr.write('\r' + summary)
 
-        if selected == 1:
+        if selected == 0:
+            numFramesThumbsUp = 0
+            numFramesThumbsDown = 0
+        elif selected == 1:
             numFramesThumbsDown = numFramesThumbsDown + 1;
             numFramesThumbsUp = 0;
             if (numFramesThumbsDown > 10 and isOn):
